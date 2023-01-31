@@ -49,3 +49,31 @@ movieDB.movies.forEach((film, i) => {
         <li class="promo__interactive-item">${i + 1} ${film}
         `;
 });
+
+const addForm = document.querySelector("form.add"),
+    addInput = addForm.querySelector(".adding__input"),
+    checkbox = addForm.querySelector('[type="checkbox"]');
+
+addForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let newFilm = addInput.value;
+    const favorite = checkbox.checked;
+
+    if (newFilm) {
+        if (newFilm.length > 21) {
+            newFilm = `${newFilm.substring(0, 22)}...`;
+        }
+
+        if (favorite) {
+            console.log("Добавляем любимый фильм");
+        }
+
+        movieDB.movies.push(newFilm);
+        sortArr(movieDB.movies);
+
+        createMovieList(movieDB.movies, movieList);
+    }
+
+    event.target.reset();
+});
